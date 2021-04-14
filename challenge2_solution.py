@@ -10,17 +10,17 @@ def remove_element_from_json(element_name):
     with open('test_payload.json', 'r') as json_file:
         data = json.load(json_file)
 
-    for k, v in data.items():
+    for k, v in list(data.items()):
         if element_name in k:
-            del data[element_name]
+            data.pop(element_name)
         elif v is not None and element_name in v:
-            for key in v.keys():
+            for key in list(v.keys()):
                 if element_name == key:
-                    del v[key]
+                    v.pop(key)
 
     with open('test_payload.json', 'w') as json_file:
         json.dump(data, json_file)
 
 
 if __name__ == '__main__':
-    remove_element_from_json(u"statecode")
+    remove_element_from_json("statecode")
